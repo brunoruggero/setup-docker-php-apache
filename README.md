@@ -1,30 +1,50 @@
 # Setup Docker Para Projetos PHP
 
-#### Introdução
+#### 🎲 Rodando a Aplicação (servidor)
 
-O presente projeto tem como objetivo demonstrar como criar um ambiente de desenvolvimento para aplicativos PHP usando Docker, Docker Compose, PHP, Apache e MySQL. A abordagem do Docker torna mais fácil e eficiente a configuração do ambiente, garantindo a consistência entre máquinas e facilitando o desenvolvimento colaborativo. 
+Clone Repositório
+```sh
+git clone https://github.com/brunoruggero/setup-docker-php-apache.git my-project
+cd my-project/
+```
 
-#### Visão Geral do Projeto
+Alterne para a branch docker-with-php-7.4
+```sh
+git checkout docker-with-php-7.4
+```
 
-O projeto consiste na criação de um ambiente de desenvolvimento local para aplicativos PHP. O Docker é uma ferramenta de conteinerização que permite empacotar o aplicativo, suas dependências e configurações em um único contêiner, garantindo a portabilidade e facilidade de implantação. O Docker Compose é usado para orquestrar vários contêineres e definir a infraestrutura do ambiente.
+Remova o versionamento
+```sh
+rm -rf .git/
+```
 
-#### Componentes do Ambiente
+Crie o Arquivo .env
+```sh
+cp .env.example .env
+```
 
-1. **Dockerfile:** Um arquivo de configuração que define as especificações do contêiner. Nele, são listadas as dependências necessárias, comandos para instalação do PHP e Apache, e configurações adicionais.
-2. **Docker Compose:** Um arquivo YAML que define a estrutura do ambiente e a relação entre os serviços. Neste projeto, definiremos um serviço para o contêiner PHP e outro para o contêiner do MySQL.
-3. **PHP:** A linguagem de programação usada para desenvolver aplicativos web. No contêiner, o PHP será instalado com as extensões e bibliotecas necessárias.
-4. **Apache:** O servidor web responsável por processar as solicitações HTTP dos aplicativos e devolver as respostas adequadas.
-5. **MySQL:** Um sistema de gerenciamento de banco de dados relacional que armazenará os dados do aplicativo.
+Atualize as variáveis de ambiente do arquivo .env
+```dosini
+DB_ROOT_PASSWORD= INFORME A SENHA PARA O USER ROOT
+DB_USER= INFORME O NOME DE USUÁRIO PARA ACESSAR O BANCO DE DADOS
+DB_PASSWORD= INFORME A SENHA DO USUÁRIO
 
-#### Pré-requisitos
+PATH_HOST_WWW= INFORME O MESMO NOME DA PASTA ONDE O REPOSITÓRIO FOI CLONADO
+```
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+Em sistemas Windows apontar a URL_DEV no arquivo host. Para isso deve acessar a pasta:
 
-[Docker-composer](https://docs.docker.com/compose/)
+```dosini
+ - C:\Windows\System32\drivers\etc
+ - Abrir arquivo hosts
+ - Adicionar a entrada no arquivo juntamente com o ip.
+   -  Exemplo: 192.168.0.0     local.dev.com.br
+```
 
-[WSL2](https://learn.microsoft.com/pt-br/windows/wsl/install)
+Suba os containers do projeto
+```sh
+docker-compose up -d --build
+```
 
-#### Branchs do projeto
-
-1. Versão com **PHP 7.4** (docker-with-php-7.4)
-2. Versão com **PHP 8.1** (docker-with-php-8)
+Após a subir os container, acesse o projeto:
+[https://local.dev.com.br](https://local.dev.com.br)

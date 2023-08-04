@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  dev_db:
+    image: mysql:5.7.43
+    restart: unless-stopped
+    container_name: dev_db
+    command: >
+      --default-authentication-plugin=mysql_native_password  --character-set-server=utf8mb4  --collation-server=utf8mb4_unicode_ci  --innodb_file_format=barracuda  --innodb_file_per_table=On  --innodb_large_prefix=On
+
+    volumes:
+      - "dev_banco:/var/lib/mysql:rw"
+
+    ports:
+      - "${DB_HOST_PORT}:${DB_CTNR_PORT}"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+  dev_www:
+    build: "./"
+    restart: unless-stopped
+    container_name: dev_www
+    env_file:
+      - .env
+    volumes:
+      - '${PATH_HOST_WWW}:${PATH_CTNR_WWW}:rw'
+    ports:
+      - '${SSL_HOST_PORT}:${SSL_CTNR_PORT}'
+    environment:
+      URL_DEV: ${URL_DEV}
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_COLLATE: ${DB_COLLATE}
+      DB_CHARSET: ${DB_CHARSET}
+      DB_TIMEZONE: ${DB_TIMEZONE}
+      DB_HOST_PORT: ${DB_HOST_PORT}
+
+volumes:
+  dev_banco:
