@@ -8,9 +8,9 @@ git clone https://github.com/brunoruggero/setup-docker-php-apache.git my-project
 cd my-project/
 ```
 
-Alterne para a branch docker-with-php-8.2
+Alterne para a branch docker-with-php-8
 ```sh
-git checkout docker-with-php-8.2
+git checkout docker-with-php-8
 ```
 
 Remova o versionamento
