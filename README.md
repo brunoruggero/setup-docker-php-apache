@@ -28,3 +28,4 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 1. Versão com **PHP 7.4** (docker-with-php-7.4)
 2. Versão com **PHP 8.1** (docker-with-php-8)
+3. Versão com **PHP 8.2** (docker-with-php-8.2)
